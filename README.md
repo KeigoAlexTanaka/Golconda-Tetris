@@ -13,5 +13,11 @@ Making the pieces rotate correctly
 *bonus: Allowing for holding pieces
 *bonus: Allowing for adjusting move speeds
 
+* Item 1
+* Item 2
+  * Item 2a
+  * Item 2b
+
+
 An explanation of how you foresee yourself solving the aforementioned problems.
 Google and youtube
