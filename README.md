@@ -5,19 +5,12 @@ The game is made of a grid of 10x40 square cells, with various square blocks arr
 The following project will use HTML, CSS, Javascript, and JS Canvas
 
 An explanation of the major problems you plan to face while implementing this game.
-Collision detection
-Figuring out how to clear a row
-Figuring out how to make the gameplay smooth
-Making the pieces rotate correctly
-*bonus: Allowing for T-Spins
-*bonus: Allowing for holding pieces
-*bonus: Allowing for adjusting move speeds
+* Collision detection
+* Clearing a row
+* Figuring out how to make the gameplay smooth
+* Making the pieces rotate correctly
+* bonus: Allowing for T-Spins
+* bonus: Allowing for holding pieces
+* bonus: Allowing for adjusting move speeds
 
-* Item 1
-* Item 2
-  * Item 2a
-  * Item 2b
-
-
-An explanation of how you foresee yourself solving the aforementioned problems.
-Google and youtube
+I will use Google and youtube to solve the above problems.
