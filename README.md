@@ -9,6 +9,11 @@ An explanation of the major problems you plan to face while implementing this ga
 * Clearing a row
 * Figuring out how to make the gameplay smooth
 * Making the pieces rotate correctly
+* bonus: Adding ghost pieces
+* bonus: Adding a leveling system
+* bonus: Adding a hard drop
+* bonus: Add lock delay
+* bonus: 7-bag random generator
 * bonus: Allowing for T-Spins
 * bonus: Allowing for holding pieces
 * bonus: Allowing for adjusting move speeds
