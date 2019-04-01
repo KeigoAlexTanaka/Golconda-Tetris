@@ -4,7 +4,7 @@ The game is made of a grid of 10x40 square cells, with various square blocks arr
 
 The following project will use HTML, CSS, Javascript, and JS Canvas
 
-An explanation of the major problems you plan to face while implementing this game.
+An explanation of the major problems you plan to face while implementing this game:
 * Collision detection
 * Clearing a row
 * Figuring out how to make the gameplay smooth
