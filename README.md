@@ -1,13 +1,8 @@
 # tetris
 
-A description of the game you'll be building with the objective described in non-technical language.
-A grid of 10x40 square cells, with various square blocks arranged in groups of 4 coming down one piece at at time. When there is a line of 10 blocks, a row will clear and the remaining blocks will shift down. The more you clear, the faster the pieces fall. The game ends when the blocks reach a vertical height of 20 square grids.
+The game is made of a grid of 10x40 square cells, with various square blocks arranged in groups of 4 coming down one piece at at time. When there is a line of 10 blocks, a row will clear and the remaining blocks will shift down. The more you clear, the faster the pieces fall. The game ends when the blocks reach a vertical height of 20 square grids.
 
-A list of the main technologies you plan to use.
-HTML
-CSS
-Javascript
-Canvas
+The following project will use HTML, CSS, Javascript, and JS Canvas
 
 An explanation of the major problems you plan to face while implementing this game.
 Collision detection
@@ -20,4 +15,3 @@ Making the pieces rotate correctly
 
 An explanation of how you foresee yourself solving the aforementioned problems.
 Google and youtube
-
