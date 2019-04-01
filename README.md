@@ -14,3 +14,5 @@ An explanation of the major problems you plan to face while implementing this ga
 * bonus: Allowing for adjusting move speeds
 
 I will use Google and youtube to solve the above problems. The tetris guideline will also provide instructions on how the tetriminos should come out and rotate.
+
+![alt text](https://github.com/KeigoAlexTanaka/tetris/blob/master/tumblr_om2ypwTc5y1uluhv2o1_500.gif?raw=true)
