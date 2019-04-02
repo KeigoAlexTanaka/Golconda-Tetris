@@ -28,15 +28,14 @@ let player2={
 const updatePlayer2=(dir)=>{
     player2.position=player.position;
     player2.tetrimino=player.tetrimino;
-
-if (dir>0){
-        if(player.rotation<3){
-            player2.rotation=player.rotation+dir;
+    if (dir>0){
+            if(player.rotation<3){
+                player2.rotation=player.rotation+dir;
+            }
+            else{
+                player2.rotation=0;
+            }
         }
-        else{
-            player2.rotation=0;
-        }
-    }
     if (dir<0){
         if(player.rotation==0){
             player2.rotation=3;
@@ -165,7 +164,7 @@ const createGrid=(w, h)=>{
     return grid;
 }
 
-const gameGrid=createGrid(10,20);
+let gameGrid=createGrid(10,20);
 
 // initialize game
 const render=()=>{
@@ -174,6 +173,13 @@ const render=()=>{
     ctx.fillRect(0,0,canvas.width,canvas.height);
     renderTetri(gameGrid,{x:0,y:0});
     renderTetri(player.tetrimino[player.rotation],player.position);
+}
+
+const reset=()=>{
+    if(gameGrid[0].some((n)=>n!=0)){
+        gameGrid=createGrid(10,20);
+        player.score=0;
+    }
 }
 
 const colors = [
@@ -211,6 +217,16 @@ const softDrop=()=>{
         player.position={x:4,y:0};
         changeTetri();
     }
+}
+const hardDrop=()=>{
+    while(!checkCollision(gameGrid,player)){
+        player.position.y++;
+    }
+    player.position.y--;
+    merge(gameGrid,player);
+    clearRow();
+    player.position={x:4,y:0};
+    changeTetri();
 }
 const checkCollision=(gameGrid,player)=>{
     // check if the player tetrimino has touched the floor or the games senses another block direcly below
@@ -268,10 +284,8 @@ const rotate=(dir)=>{
         }
     }
 }
-// let row=[0,0,0,0,0,0,0,0,0,0]
 const clearRow=()=>{
-    // if the grid row is full of non-zero numbers, pop the row array and add back an empty array at the top
-    // console.table(gameGrid());
+    // if the grid row is full of non-zero numbers, remove the row array and add back an empty array at the top
     for(row in gameGrid){
         console.log(gameGrid[row].every((n)=>n!=0));
         if(gameGrid[row].every((n)=>n!=0)){
@@ -279,6 +293,21 @@ const clearRow=()=>{
             gameGrid.unshift([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
             console.log(gameGrid);
         }
+    }
+}
+let hold1=null;
+let hold2=null;
+const hold=()=>{
+    if (hold1==null){
+        hold1=player.tetrimino;
+        player.position={x:4,y:0};
+        changeTetri();
+    }
+    else{
+        hold2=player.tetrimino;
+        player.tetrimino=hold1;
+        hold1=hold2;
+        player.position={x:4,y:0};
     }
 }
 
@@ -289,16 +318,24 @@ const update=()=>{
 			counter=0;
 		}
     render();
+    reset();
     requestAnimationFrame(update);
 }
 
 // Key Switch
 document.addEventListener('keydown', e => {
   const keyCode = e.keyCode;
-  if ([32,37, 38, 39, 40,81,87].includes(keyCode)) {
+  if ([16,32,37, 38, 39, 40,81,87].includes(keyCode)) {
     e.preventDefault();
   }
   switch (keyCode) {
+    case 16:
+        hold();
+        break;
+    // spacebar
+    case 32:
+        hardDrop();
+        break;
     // left arrow
     case 37:
         moveDir(-1);
