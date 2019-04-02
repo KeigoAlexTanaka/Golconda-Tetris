@@ -275,7 +275,7 @@ const clearRow=()=>{
     for(row in gameGrid){
         console.log(gameGrid[row].every((n)=>n!=0));
         if(gameGrid[row].every((n)=>n!=0)){
-            gameGrid.pop();
+            gameGrid.splice(row,1);
             gameGrid.unshift([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
             console.log(gameGrid);
         }
