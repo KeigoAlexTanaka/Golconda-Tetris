@@ -4,18 +4,7 @@ ctx.scale(20,20);
 
 const player={
     position:{x:4,y:0},
-    tetrimino:[[[0,1,0],
-                [1,1,1],
-                [0,0,0]],
-                [[0,1,0],
-                [0,1,1],
-                [0,1,0]],
-                [[0,0,0],
-                [1,1,1],
-                [0,1,0]],
-                [[0,1,0],
-                [1,1,0],
-                [0,1,0]]],
+    tetrimino:[],
     rotation:0,
     score:0
 }
@@ -165,8 +154,39 @@ const createTetri=(n)=>{
                 [7,0,0]]];
     }
 }
+let array=[1,2,3,4,5,6,7];
+let rand;
+let i=6;
+let next;
+
+// fisher-yates shuffle
+// taken from https://bost.ocks.org/mike/shuffle/
+const shuffleArray=(arr)=>{
+  let currentIndex = arr.length, temporaryValue, randomIndex;
+  while (0 !== currentIndex) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+    temporaryValue = arr[currentIndex];
+    arr[currentIndex] = arr[randomIndex];
+    arr[randomIndex] = temporaryValue;
+  }
+  array=arr;
+
+}
+
 const changeTetri=()=>{
-    player.tetrimino=createTetri(Math.ceil(Math.random()*7));
+    player.tetrimino=createTetri(array[i]);
+    next=createTetri(array[i-1]);
+    array.splice(i,1);
+    console.log(`array length:${array.length}`);
+    i--;
+    console.log(i);
+    if(i<0){
+        i=6;
+        array=[1,2,3,4,5,6,7];
+        shuffleArray(array);
+        next=createTetri(array[i]);
+    }
 }
 
 const createGrid=(w, h)=>{
@@ -190,9 +210,10 @@ const render=()=>{
     renderTetri(gameGrid,{x:0,y:0});
     renderTetri(player.tetrimino[player.rotation],player.position);
     renderGhost(player.tetrimino[player.rotation],ghost.position);
-    if(hold1||hold2){
-        renderHold(hold1[0],{x:0,y:0});
+    if(hold1){
+        renderTetri(hold1[1],{x:-1,y:0});
     }
+    renderTetri(next[1],{x:7,y:0});
 }
 
 const reset=()=>{
@@ -233,23 +254,11 @@ const renderGhost=(tetri, offset)=>{
         row.forEach((value,xIndex)=>{
             if (value!=0){
                 // render tetrimino
-                ctx.fillStyle='rgba(221, 221, 221, .25)';
+                ctx.fillStyle='rgb(221, 221, 221, .25)';
                 ctx.fillRect(xIndex+offset.x,yIndex+offset.y,1,1);
             }
         })
     })
-}
-
-const renderHold=(tetri, offset)=>{
-        tetri.forEach((row,yIndex)=>{
-            row.forEach((value,xIndex)=>{
-                if (value!=0){
-                    // render tetrimino
-                    ctx.fillStyle=colors[value];
-                    ctx.fillRect(xIndex+offset.x,yIndex+offset.y,1,1);
-                }
-            })
-        })
 }
 
 let counter=0;
@@ -412,6 +421,8 @@ document.addEventListener('keydown', e => {
         break;
   }
 });
+shuffleArray(array);
+changeTetri();
 update();
 updatePlayer2(0,0);
 // console.table(gameGrid);
