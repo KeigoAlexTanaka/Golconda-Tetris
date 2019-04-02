@@ -207,6 +207,7 @@ const softDrop=()=>{
     if(checkCollision(gameGrid,player)){
         player.position.y--;
         merge(gameGrid,player);
+        clearRow();
         player.position={x:4,y:0};
         changeTetri();
     }
@@ -255,27 +256,6 @@ const rotate=(dir)=>{
                 player.rotation=0;
             }
         }
-        else{
-            while(checkCollision(gameGrid,player2)){
-                if(player2.position.x<4){
-                    player.position.x++;
-                }
-                else{
-                    player.position.x--;
-                }
-                if(player2.position.y<0){
-                    player.position.y--;
-                }
-                if(player.rotation<3){
-                    player.rotation+=dir;
-                    return;
-                }
-                else{
-                    player.rotation=0;
-                    return;
-                }
-            }
-        }
     }
     if (dir<0){
         if(!checkCollision(gameGrid,player2)){
@@ -286,26 +266,18 @@ const rotate=(dir)=>{
                 player.rotation+=dir;
             }
         }
-        else{
-            while(checkCollision(gameGrid,player2)){
-                if(player2.position.x<4){
-                    player.position.x++;
-                }
-                else{
-                    player.position.x--;
-                }
-                if(player2.position.y<0){
-                    player.position.y--;
-                }
-                if(player.rotation==0){
-                    player.rotation=3;
-                    return;
-                }
-                else{
-                    player.rotation+=dir;
-                    return;
-                }
-            }
+    }
+}
+// let row=[0,0,0,0,0,0,0,0,0,0]
+const clearRow=()=>{
+    // if the grid row is full of non-zero numbers, pop the row array and add back an empty array at the top
+    // console.table(gameGrid());
+    for(row in gameGrid){
+        console.log(gameGrid[row].every((n)=>n!=0));
+        if(gameGrid[row].every((n)=>n!=0)){
+            gameGrid.pop();
+            gameGrid.unshift([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+            console.log(gameGrid);
         }
     }
 }
@@ -352,4 +324,4 @@ document.addEventListener('keydown', e => {
 
 update();
 updatePlayer2(0,0);
-console.table(player2);
+// console.table(gameGrid);
