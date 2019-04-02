@@ -190,6 +190,9 @@ const render=()=>{
     renderTetri(gameGrid,{x:0,y:0});
     renderTetri(player.tetrimino[player.rotation],player.position);
     renderGhost(player.tetrimino[player.rotation],ghost.position);
+    if(hold1||hold2){
+        renderHold(hold1[0],{x:0,y:0});
+    }
 }
 
 const reset=()=>{
@@ -235,6 +238,18 @@ const renderGhost=(tetri, offset)=>{
             }
         })
     })
+}
+
+const renderHold=(tetri, offset)=>{
+        tetri.forEach((row,yIndex)=>{
+            row.forEach((value,xIndex)=>{
+                if (value!=0){
+                    // render tetrimino
+                    ctx.fillStyle=colors[value];
+                    ctx.fillRect(xIndex+offset.x,yIndex+offset.y,1,1);
+                }
+            })
+        })
 }
 
 let counter=0;
@@ -345,6 +360,8 @@ const hold=()=>{
         player.position={x:4,y:0};
         holdstate=false;
     }
+    // console.log(player.tetrimino[player.rotation]);
+    // console.log(hold1[0]);
 }
 
 const update=()=>{
@@ -397,4 +414,4 @@ document.addEventListener('keydown', e => {
 });
 update();
 updatePlayer2(0,0);
-console.table(gameGrid);
+// console.table(gameGrid);
