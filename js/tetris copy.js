@@ -189,13 +189,15 @@ const render=()=>{
     ctx.fillRect(0,0,canvas.width,canvas.height);
     renderTetri(gameGrid,{x:0,y:0});
     renderTetri(player.tetrimino[player.rotation],player.position);
-    renderTetri(player.tetrimino[player.rotation],ghost.position);
+    renderGhost(player.tetrimino[player.rotation],ghost.position);
 }
 
 const reset=()=>{
     if(gameGrid[0].some((n)=>n!=0)){
         gameGrid=createGrid(10,20);
         player.score=0;
+        hold1=null;
+        hold2=null;
     }
 }
 
@@ -223,6 +225,18 @@ const renderTetri=(tetri, offset)=>{
     })
 }
 
+const renderGhost=(tetri, offset)=>{
+    tetri.forEach((row,yIndex)=>{
+        row.forEach((value,xIndex)=>{
+            if (value!=0){
+                // render tetrimino
+                ctx.fillStyle='rgba(221, 221, 221, .25)';
+                ctx.fillRect(xIndex+offset.x,yIndex+offset.y,1,1);
+            }
+        })
+    })
+}
+
 let counter=0;
 
 const softDrop=()=>{
@@ -233,6 +247,7 @@ const softDrop=()=>{
         clearRow();
         player.position={x:4,y:0};
         changeTetri();
+        holdstate=true;
     }
 }
 const hardDrop=()=>{
@@ -244,6 +259,7 @@ const hardDrop=()=>{
     clearRow();
     player.position={x:4,y:0};
     changeTetri();
+    holdstate=true;
 }
 const checkCollision=(gameGrid,player)=>{
     // check if the player tetrimino has touched the floor or the games senses another block direcly below
@@ -314,17 +330,20 @@ const clearRow=()=>{
 }
 let hold1=null;
 let hold2=null;
+let holdstate=true;
 const hold=()=>{
     if (hold1==null){
         hold1=player.tetrimino;
         player.position={x:4,y:0};
         changeTetri();
+        holdstate=false;
     }
-    else{
+    else if(holdstate){
         hold2=player.tetrimino;
         player.tetrimino=hold1;
         hold1=hold2;
         player.position={x:4,y:0};
+        holdstate=false;
     }
 }
 
@@ -378,4 +397,4 @@ document.addEventListener('keydown', e => {
 });
 update();
 updatePlayer2(0,0);
-// console.table(gameGrid);
+console.table(gameGrid);
