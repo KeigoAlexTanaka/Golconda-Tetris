@@ -24,6 +24,11 @@ let player2={
     tetrimino:[],
     rotation:0
 }
+let ghost={
+    position:{x:0,y:0},
+    tetrimino:[],
+    rotation:0
+};
 
 const updatePlayer2=(dir)=>{
     player2.position=player.position;
@@ -44,6 +49,17 @@ const updatePlayer2=(dir)=>{
             player2.rotation=player.rotation+dir;
         }
     }
+}
+
+const updateGhost=()=>{
+    ghost.position.x=parseInt(player.position.x);
+    ghost.position.y=parseInt(player.position.y);
+    ghost.tetrimino=player.tetrimino;
+    ghost.rotation=player.rotation;
+    while(!checkCollision(gameGrid,ghost)){
+            ghost.position.y++;
+        }
+        ghost.position.y--;
 }
 
 // create tetriminos
@@ -173,6 +189,7 @@ const render=()=>{
     ctx.fillRect(0,0,canvas.width,canvas.height);
     renderTetri(gameGrid,{x:0,y:0});
     renderTetri(player.tetrimino[player.rotation],player.position);
+    renderTetri(player.tetrimino[player.rotation],ghost.position);
 }
 
 const reset=()=>{
@@ -317,6 +334,7 @@ const update=()=>{
 			softDrop();
 			counter=0;
 		}
+    updateGhost();
     render();
     reset();
     requestAnimationFrame(update);
@@ -358,7 +376,6 @@ document.addEventListener('keydown', e => {
         break;
   }
 });
-
 update();
 updatePlayer2(0,0);
 // console.table(gameGrid);
