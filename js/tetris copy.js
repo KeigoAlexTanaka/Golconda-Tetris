@@ -1,5 +1,9 @@
-const canvas=document.querySelector('canvas');
-const ctx = canvas.getContext('2d');
+const game=document.querySelector('#tetris');
+const holdCanvas=document.querySelector('#hold');
+const nextCanvas=document.querySelector('#next');
+const ctx = game.getContext('2d');
+const holdCtx= holdCanvas.getContext('2d');
+const nextCtx= nextCanvas.getContext('2d');
 ctx.scale(20,20);
 
 const player={
@@ -206,12 +210,12 @@ let gameGrid=createGrid(10,20);
 const render=()=>{
     // render black bg
     ctx.fillStyle="black";
-    ctx.fillRect(0,0,canvas.width,canvas.height);
+    ctx.fillRect(0,0,game.width,game.height);
     renderTetri(gameGrid,{x:0,y:0});
     renderTetri(player.tetrimino[player.rotation],player.position);
     renderGhost(player.tetrimino[player.rotation],ghost.position);
     if(hold1){
-        renderTetri(hold1[1],{x:-1,y:0});
+        renderTetri(hold1[1],{x:0,y:0});
     }
     renderTetri(next[1],{x:7,y:0});
 }
@@ -320,6 +324,7 @@ const moveDir=(dir)=>{
 
 const rotate=(dir)=>{
     updatePlayer2(dir);
+    counter-=7;
     if (dir>0){
         if(!checkCollision(gameGrid,player2)){
             if(player.rotation<3){
@@ -346,6 +351,7 @@ const clearRow=()=>{
     for(row in gameGrid){
         console.log(gameGrid[row].every((n)=>n!=0));
         if(gameGrid[row].every((n)=>n!=0)){
+            player.score+=10;
             gameGrid.splice(row,1);
             gameGrid.unshift([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
             console.log(gameGrid);
@@ -374,12 +380,13 @@ const hold=()=>{
 }
 
 const update=()=>{
-		counter+=60;
-		if(counter>1000){
+		counter+=1;
+		if(counter>8){
 			softDrop();
 			counter=0;
 		}
     updateGhost();
+    document.getElementById('score').innerHTML=player.score;
     render();
     reset();
     requestAnimationFrame(update);
