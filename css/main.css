@@ -50,14 +50,27 @@ border-spacing: 0;
 /*Game Grid*/
 body{
 	text-align: center;
+	/*background-color: red;*/
 }
-canvas{
+#tetris{
 	height:90vh;
 }
 #tetris-grid{
 	border:1px solid black;
 	width:50%;
 	margin: auto;
+}
+#hold{
+	position:absolute;
+	top:7vh;
+	left:30vw;
+	height:15vh;
+}
+#next{
+	position:absolute;
+	top:7vh;
+	right:30vw;
+	height:15vh;
 }
 .row{
 	border:1px solid red;
@@ -74,9 +87,12 @@ canvas{
 	z-index: 1;
 	position: fixed;
 }
+#game-over{
+	display:none;
+}
 
 /*Tetrimino colors*/
-.cyan{
+/*.cyan{
 	background-color:#00FFFF;
 }
 .yellow{
@@ -96,4 +112,4 @@ canvas{
 }
 .orange{
 	background-color: orange;
-}
+}*/

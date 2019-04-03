@@ -5,6 +5,8 @@ const ctx = game.getContext('2d');
 const holdCtx= holdCanvas.getContext('2d');
 const nextCtx= nextCanvas.getContext('2d');
 ctx.scale(20,20);
+holdCtx.scale(20,20);
+nextCtx.scale(20,20);
 
 const player={
     position:{x:4,y:0},
@@ -72,15 +74,33 @@ const createTetri=(n)=>{
                 [0,1,0]]];
     }
     else if (n==2){
-        return [[[2,2],
-                [2,2]],
-                [[2,2],
-                [2,2]],
-                [[2,2],
-                [2,2]],
-                [[2,2],
-                [2,2]]];
+        return [[[0,0,0,0],
+                [0,2,2,0],
+                [0,2,2,0],
+                [0,0,0,0]],
+                [[0,0,0,0],
+                [0,2,2,0],
+                [0,2,2,0],
+                [0,0,0,0]],
+                [[0,0,0,0],
+                [0,2,2,0],
+                [0,2,2,0],
+                [0,0,0,0]],
+                [[0,0,0,0],
+                [0,2,2,0],
+                [0,2,2,0],
+                [0,0,0,0]]];
     }
+                
+                // [[[2,2],
+                // [2,2]],
+                // [[2,2],
+                // [2,2]],
+                // [[2,2],
+                // [2,2]],
+                // [[2,2],
+                // [2,2]]];
+
     else if (n==3){
         return [[[0,0,3],
                 [3,3,3],
@@ -175,7 +195,6 @@ const shuffleArray=(arr)=>{
     arr[randomIndex] = temporaryValue;
   }
   array=arr;
-
 }
 
 const changeTetri=()=>{
@@ -204,29 +223,49 @@ const createGrid=(w, h)=>{
     return grid;
 }
 
-let gameGrid=createGrid(10,20);
+let gameGrid=createGrid(10,22);
 
 // initialize game
 const render=()=>{
     // render black bg
     ctx.fillStyle="black";
-    ctx.fillRect(0,0,game.width,game.height);
+    ctx.fillRect(0,1,game.width,21);
+    holdCtx.fillStyle="white";
+    holdCtx.fillRect(0,0,holdCanvas.width,holdCanvas.height);
+    nextCtx.fillStyle="white";
+    nextCtx.fillRect(0,0,holdCanvas.width,holdCanvas.height);
     renderTetri(gameGrid,{x:0,y:0});
     renderTetri(player.tetrimino[player.rotation],player.position);
+    ctx.fillStyle="white";
+    ctx.fillRect(0,0,game.width,1);
     renderGhost(player.tetrimino[player.rotation],ghost.position);
     if(hold1){
-        renderTetri(hold1[1],{x:0,y:0});
+        renderHold(hold1[1],{x:-1,y:0});
     }
-    renderTetri(next[1],{x:7,y:0});
+    renderNext(next[1],{x:-1,y:0});
 }
 
+let resetBtn=document.getElementById('reset');
+
 const reset=()=>{
-    if(gameGrid[0].some((n)=>n!=0)){
-        gameGrid=createGrid(10,20);
-        player.score=0;
-        hold1=null;
-        hold2=null;
-    }
+    gameGrid=createGrid(10,22);
+    player.position={x:4,y:0};
+    player.tetrimino=[];
+    player.rotation=0;
+    player.score=0;
+    hold1=null;
+    hold2=null;
+    changeTetri();
+}
+
+let lastScore;
+const displayGameOver=()=>{
+    lastScore=player.score;
+    let modal=document.getElementById('game-over');
+    let number=document.getElementById('number');
+    number.innerHTML=lastScore;
+    modal.style.display="block";
+
 }
 
 const colors = [
@@ -240,7 +279,7 @@ const colors = [
     '#3877FF',
 ];
 
-// render past tetrimino pieces?
+// render past tetrimino pieces
 const renderTetri=(tetri, offset)=>{
     tetri.forEach((row,yIndex)=>{
         row.forEach((value,xIndex)=>{
@@ -248,6 +287,30 @@ const renderTetri=(tetri, offset)=>{
             	// render tetrimino
                 ctx.fillStyle=colors[value];
                 ctx.fillRect(xIndex+offset.x,yIndex+offset.y,1,1);
+            }
+        })
+    })
+}
+
+const renderHold=(tetri, offset)=>{
+    tetri.forEach((row,yIndex)=>{
+        row.forEach((value,xIndex)=>{
+            if (value!=0){
+                // render tetrimino
+                holdCtx.fillStyle=colors[value];
+                holdCtx.fillRect(xIndex+offset.x,yIndex+offset.y,1,1);
+            }
+        })
+    })
+}
+
+const renderNext=(tetri, offset)=>{
+    tetri.forEach((row,yIndex)=>{
+        row.forEach((value,xIndex)=>{
+            if (value!=0){
+                // render tetrimino
+                nextCtx.fillStyle=colors[value];
+                nextCtx.fillRect(xIndex+offset.x,yIndex+offset.y,1,1);
             }
         })
     })
@@ -324,7 +387,6 @@ const moveDir=(dir)=>{
 
 const rotate=(dir)=>{
     updatePlayer2(dir);
-    counter-=7;
     if (dir>0){
         if(!checkCollision(gameGrid,player2)){
             if(player.rotation<3){
@@ -375,31 +437,34 @@ const hold=()=>{
         player.position={x:4,y:0};
         holdstate=false;
     }
-    // console.log(player.tetrimino[player.rotation]);
-    // console.log(hold1[0]);
 }
 
 const update=()=>{
-		counter+=1;
-		if(counter>8){
-			softDrop();
-			counter=0;
-		}
+	counter+=60/60;
+	if(counter>720/60){
+		softDrop();
+		counter=0;
+	}
     updateGhost();
     document.getElementById('score').innerHTML=player.score;
     render();
-    reset();
+    if(gameGrid[2].some((n)=>n!=0)){
+        displayGameOver();
+        reset();
+    }
     requestAnimationFrame(update);
 }
 
 // Key Switch
 document.addEventListener('keydown', e => {
   const keyCode = e.keyCode;
-  if ([16,32,37, 38, 39, 40,81,87].includes(keyCode)) {
+  if ([16,17,32,37,38, 39, 40,67,81,87,88,90].includes(keyCode)) {
     e.preventDefault();
   }
   switch (keyCode) {
+    // shift or c
     case 16:
+    case 67:
         hold();
         break;
     // spacebar
@@ -410,7 +475,6 @@ document.addEventListener('keydown', e => {
     case 37:
         moveDir(-1);
         break;
-    // right arrow
     case 39:
         moveDir(1);
         break;
@@ -418,18 +482,25 @@ document.addEventListener('keydown', e => {
     case 40:
 	    softDrop();
         break;
-    // q
+    // ctrl || q || z
+    case 17:
     case 81:
+    case 90:
         rotate(-1);
         break;
-    // w
+    // up arrow || w || x
+    case 38:
     case 87:
+    case 88:
         rotate(1);
         break;
   }
 });
-shuffleArray(array);
-changeTetri();
-update();
-updatePlayer2(0,0);
-// console.table(gameGrid);
+
+const startGame=()=>{
+    shuffleArray(array);
+    changeTetri();
+    update();
+    updatePlayer2(0,0);
+}
+startGame();
