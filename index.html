@@ -3,21 +3,31 @@
 
 <head>
 	<link rel="stylesheet" type="text/css" href="css/main.css">
-	 <title>Tetris</title>
+	<link href="https://fonts.googleapis.com/css?family=Raleway:900" rel="stylesheet">
+	<title>The Treachery of Tetris</title>
 </head>
 
 <body>
-	<div id="game-over"><div>Game Over! Your score was:</div><div id="number"></div></div>
-	<div id="score"></div>
-	<canvas width="60" height="80" id="hold"></canvas>
-	<canvas width="400" height="880" id="tetris"></canvas>
-	<!-- <canvas width="200" height="440" id="tetris"></canvas> -->
-	<canvas width="60" height="80" id="next"></canvas>
-	<br><button id="reset" onclick="reset();">Reset Game</button>
-<!-- <img src="images/golconda_1.png" id="golconda-1">
-<img src="images/golconda_2.png" id="golconda-2">
-<img src="images/golconda_3.png" id="golconda-3">
-<img src="images/golconda_4.png" id="golconda-4"> -->
+	<div class="parent">
+	<div>
+		<canvas width="400" height="880" id="tetris"></canvas>
+	</div>
+	<div class="col bg">
+		<div class="col">
+			<p>Next</p>
+			<canvas width="60" height="60" id="next"></canvas>
+		</div>
+		<div class="col">
+			<p>Hold</p>
+			<canvas width="60" height="60" id="hold"></canvas>
+		</div>
+		<div id="score"></div>
+		<div id="number">High Score:<br>0</div>
+		<div>
+			<button id="reset" onclick="reset();">Reset</button>
+		</div>
+	</div>
+	</div>
 </body>
 
 <script src="js/tetris.js"></script>

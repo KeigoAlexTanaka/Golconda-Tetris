@@ -2,7 +2,6 @@
    v2.0 | 20110126
    License: none (public domain)
 */
-
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -47,74 +46,48 @@ border-collapse: collapse;
 border-spacing: 0;
 }
 
-canvas{
-	border:1px solid white;
-	background-color: rgba(0,0,0,90%);
-}
-
-/*Game Grid*/
 body{
 	text-align: center;
 	background:url(../images/golconda_bg.jpg);
+	background-size: 100%;
+	font-family: 'Raleway', sans-serif;
 }
 #tetris{
 	height:90vh;
+	background-color: rgba(0,0,0,90%);
 }
-#tetris-grid{
-	border:1px solid black;
-	width:50%;
-	margin: auto;
+.parent{
+	display:flex;
+	justify-content: center;
+	margin-top:5vh;
+}
+.col{
+	display:flex;
+	flex-direction: column;
+	padding:1vh 1vh;
+	justify-content: center;
+}
+.bg{
+	background-color: rgba(20,20,20,40%);	
+}
+p{
+	margin:.2em 0;
+	font-size: 20px;
 }
 #hold{
-	position:absolute;
-	top:7vh;
-	left:30vw;
-	height:15vh;
+	width:12vh;
+	height:12vh;
 }
 #next{
-	position:absolute;
-	top:7vh;
-	right:30vw;
-	height:15vh;
+	width:12vh;
+	height:12vh;
 }
-.row{
-	border:1px solid red;
-	display:flex;
-	width:40vh;
-	margin:auto;
-}
-.square{
-	border:1px solid blue;
-	width:4vh;
-	height:4vh;
-}
-.z-index1{
-	z-index: 1;
-	position: fixed;
-}
-#game-over{
-	display:none;
+#score{
+	margin:1em 0;
 }
 
-/*Tetrimino colors*/
-/*.cyan{
-	background-color:#00FFFF;
+button{
+	margin-top:1em;
+	font-family: 'Raleway', sans-serif;
+	font-size:20px;
 }
-.yellow{
-	background-color: yellow;
-}
-.purple{
-	background-color: purple;
-}
-.green{
-	background-color: green;
-}
-.red{
-	background-color: red;
-}
-.blue{
-	background-color: blue;
-}
-.orange{
-	background-color: orange;
-}*/
