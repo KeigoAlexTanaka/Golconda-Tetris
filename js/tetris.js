@@ -225,7 +225,6 @@ const render=()=>{
   nextCtx.clearRect(0,0,nextCanvas.width,nextCanvas.height);
   renderTetri(gameGrid,{x:0,y:0});
   renderTetri(player.tetrimino[player.rotation],player.position);
-  ctx.clearRect(0,0,game.width,1);
   renderGhost(player.tetrimino[player.rotation],ghost.position);
   if(hold1){
     renderHold(hold1[1],{x:0,y:0});
