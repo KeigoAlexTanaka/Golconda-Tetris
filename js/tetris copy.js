@@ -5,8 +5,8 @@ const ctx = game.getContext('2d');
 const holdCtx= holdCanvas.getContext('2d');
 const nextCtx= nextCanvas.getContext('2d');
 // ctx.scale(20,20);
-holdCtx.scale(20,20);
-nextCtx.scale(20,20);
+// holdCtx.scale(20,20);
+// nextCtx.scale(20,20);
 
 const player={
     position:{x:4,y:0},
@@ -61,113 +61,113 @@ const updateGhost=()=>{
 const createTetri=(n)=>{
     if (n==1){
         return [[[0,1,0],
-                [2,3,4],
+                [1,1,1],
                 [0,0,0]],
                 [[0,1,0],
-                [0,2,4],
-                [0,3,0]],
+                [0,1,1],
+                [0,1,0]],
                 [[0,0,0],
-                [2,3,4],
+                [1,1,1],
                 [0,1,0]],
                 [[0,1,0],
-                [4,2,0],
-                [0,3,0]]];
+                [1,1,0],
+                [0,1,0]]];
     }
     else if (n==2){
         return [[[0,0,0,0],
-                [0,1,2,0],
-                [0,3,4,0],
+                [0,2,2,0],
+                [0,2,2,0],
                 [0,0,0,0]],
                 [[0,0,0,0],
-                [0,4,1,0],
-                [0,3,2,0],
+                [0,2,2,0],
+                [0,2,2,0],
                 [0,0,0,0]],
                 [[0,0,0,0],
-                [0,3,4,0],
-                [0,2,1,0],
+                [0,2,2,0],
+                [0,2,2,0],
                 [0,0,0,0]],
                 [[0,0,0,0],
-                [0,2,3,0],
-                [0,1,4,0],
+                [0,2,2,0],
+                [0,2,2,0],
                 [0,0,0,0]]];
     }
             
 
     else if (n==3){
-        return [[[0,0,1],
-                [4,3,2],
+        return [[[0,0,3],
+                [3,3,3],
                 [0,0,0]],
-                [[0,4,0],
+                [[0,3,0],
                 [0,3,0],
-                [0,2,1]],
+                [0,3,3]],
                 [[0,0,0],
-                [2,3,4],
-                [1,0,0]],
-                [[1,2,0],
+                [3,3,3],
+                [3,0,0]],
+                [[3,3,0],
                 [0,3,0],
-                [0,4,0]]]
+                [0,3,0]]]
     }
 
     else if (n==4){
-        return [[[1,0,0],
-                [2,3,4],
+        return [[[4,0,0],
+                [4,4,4],
                 [0,0,0]],
-                [[0,2,1],
-                [0,3,0],
+                [[0,4,4],
+                [0,4,0],
                 [0,4,0]],
                 [[0,0,0],
-                [4,3,2],
-                [0,0,1]],
-                [[0,1,0],
-                [0,2,0],
-                [4,3,0]]];
+                [4,4,4],
+                [0,0,4]],
+                [[0,4,0],
+                [0,4,0],
+                [4,4,0]]];
     }
 
     else if (n==5){
         return [[[0,0,0,0],
-                [1,2,3,4],
+                [5,5,5,5],
                 [0,0,0,0],
                 [0,0,0,0]],
-                [[0,0,1,0],
-                [0,0,2,0],
-                [0,0,3,0],
-                [0,0,4,0]],
+                [[0,0,5,0],
+                [0,0,5,0],
+                [0,0,5,0],
+                [0,0,5,0]],
                 [[0,0,0,0],
                 [0,0,0,0],
-                [4,3,2,1],
+                [5,5,5,5],
                 [0,0,0,0]],
-                [[0,1,0,0],
-                [0,2,0,0],
-                [0,3,0,0],
-                [0,4,0,0]]];
+                [[0,5,0,0],
+                [0,5,0,0],
+                [0,5,0,0],
+                [0,5,0,0]]];
     }
     else if (n==6){
-        return [[[0,2,1],
-                [4,3,0],
+        return [[[0,6,6],
+                [6,6,0],
                 [0,0,0]],
-                [[0,1,0],
-                [0,2,3],
-                [0,0,4]],
+                [[0,6,0],
+                [0,6,6],
+                [0,0,6]],
                 [[0,0,0],
-                [0,2,1],
-                [4,3,0]],
-                [[1,0,0],
-                [2,3,0],
-                [0,4,0]]];
+                [0,6,6],
+                [6,6,0]],
+                [[6,0,0],
+                [6,6,0],
+                [0,6,0]]];
     }
     else if (n==7){
-        return [[[1,2,0],
-                [0,3,4],
+        return [[[7,7,0],
+                [0,7,7],
                 [0,0,0]],
-                [[0,0,1],
-                [0,3,2],
-                [0,4,0]],
+                [[0,0,7],
+                [0,7,7],
+                [0,7,0]],
                 [[0,0,0],
-                [1,2,0],
-                [0,3,4]],
-                [[0,1,0],
-                [3,2,0],
-                [4,0,0]]];
+                [7,7,0],
+                [0,7,7]],
+                [[0,7,0],
+                [7,7,0],
+                [7,0,0]]];
     }
 }
 let array=[1,2,3,4,5,6,7];
@@ -220,9 +220,8 @@ let gameGrid=createGrid(10,22);
 // initialize game
 const render=()=>{
     // render black bg
-    // ctx.fillStyle="rgba(0,0,0,50%)";
-    // ctx.fillRect(0,0,game.width,game.height);
-    ctx.clearRect(0,0,game.width,game.height);
+    ctx.fillStyle="black";
+    ctx.fillRect(0,1,game.width,21);
     holdCtx.clearRect(0,0,holdCanvas.width,holdCanvas.height);
     nextCtx.clearRect(0,0,nextCanvas.width,nextCanvas.height);
     renderTetri(gameGrid,{x:0,y:0});
@@ -255,6 +254,7 @@ const displayGameOver=()=>{
     let number=document.getElementById('number');
     number.innerHTML=lastScore;
     modal.style.display="block";
+
 }
 
 const colors = [
@@ -299,20 +299,11 @@ const renderTetri=(tetri, offset)=>{
         row.forEach((value,xIndex)=>{
             if (value!=0){
             	// render tetrimino
-                // ctx.fillStyle=colors[value];
-                // ctx.fillRect((xIndex+offset.x)*40,(yIndex+offset.y)*40,40,40);
-                if(value==1){
-                    ctx.drawImage(img1,(xIndex+offset.x)*40,(yIndex+offset.y)*40,40,40);
-                }
-                else if(value==2){
-                    ctx.drawImage(img2,(xIndex+offset.x)*40,(yIndex+offset.y)*40,40,40);   
-                }
-                else if (value==3){
-                    ctx.drawImage(img3,(xIndex+offset.x)*40,(yIndex+offset.y)*40,40,40);   
-                }
-                else if (value==4){
-                    ctx.drawImage(img4,(xIndex+offset.x)*40,(yIndex+offset.y)*40,40,40);
-                }
+                ctx.fillStyle=colors[value];
+                // ctx.fillRect(xIndex+offset.x,yIndex+offset.y,1,1);
+                // img1.onload = function() {
+                    ctx.drawImage(img1,xIndex+offset.x,yIndex+offset.y-30,40,40);
+                // }
             }
         })
     })
@@ -323,8 +314,8 @@ const renderHold=(tetri, offset)=>{
         row.forEach((value,xIndex)=>{
             if (value!=0){
                 // render tetrimino
-                holdCtx.fillStyle="blue";
-                holdCtx.fillRect((xIndex+offset.x),(yIndex+offset.y),1,1);
+                holdCtx.fillStyle=colors[value];
+                holdCtx.fillRect(xIndex+offset.x,yIndex+offset.y,1,1);
             }
         })
     })
@@ -335,8 +326,8 @@ const renderNext=(tetri, offset)=>{
         row.forEach((value,xIndex)=>{
             if (value!=0){
                 // render tetrimino
-                nextCtx.fillStyle="green";
-                nextCtx.fillRect((xIndex+offset.x),(yIndex+offset.y),1,1);
+                nextCtx.fillStyle=colors[value];
+                nextCtx.fillRect(xIndex+offset.x,yIndex+offset.y,1,1);
             }
         })
     })
@@ -348,7 +339,7 @@ const renderGhost=(tetri, offset)=>{
             if (value!=0){
                 // render tetrimino
                 ctx.fillStyle='rgb(221, 221, 221, .25)';
-                ctx.fillRect((xIndex+offset.x)*40,(yIndex+offset.y)*40,40,40);
+                ctx.fillRect(xIndex+offset.x,yIndex+offset.y,1,1);
             }
         })
     })

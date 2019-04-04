@@ -49,12 +49,13 @@ border-spacing: 0;
 
 canvas{
 	border:1px solid white;
+	background-color: rgba(0,0,0,90%);
 }
 
 /*Game Grid*/
 body{
 	text-align: center;
-	background-color: red;
+	background:url(../images/golconda_bg.jpg);
 }
 #tetris{
 	height:90vh;
