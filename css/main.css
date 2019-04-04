@@ -47,10 +47,14 @@ border-collapse: collapse;
 border-spacing: 0;
 }
 
+canvas{
+	border:1px solid white;
+}
+
 /*Game Grid*/
 body{
 	text-align: center;
-	/*background-color: red;*/
+	background-color: red;
 }
 #tetris{
 	height:90vh;
