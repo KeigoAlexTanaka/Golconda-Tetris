@@ -22,4 +22,4 @@ I will use Google and youtube to solve the above problems. The tetris guideline 
 
 ![galconda_tetris](https://github.com/KeigoAlexTanaka/tetris/blob/master/images/tumblr_om2ypwTc5y1uluhv2o1_500.gif?raw=true)
 
-![Click Me](http://golconda-tetris.surge.sh/)
+[Check out the project on Surge](http://golconda-tetris.surge.sh/ "Golconda Tetris")
