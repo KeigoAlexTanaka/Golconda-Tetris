@@ -1,8 +1,22 @@
-// Huge thanks to Meth Meth Method for his tutorial on programming tetris
-// CheckCollision and Merge functions adapted from his work
-// https://www.youtube.com/watch?v=H2aW5V46khA
-// https://github.com/meth-meth-method/tetris
+// modal
+let modalBG = document.getElementById('modal-bg');
+let help = document.getElementById('help');
+// check if modal exists on page
+const openHelp=()=>{
+  let modalImg = document.getElementById("img01");
+  const open = () => {
+    modalBG.style.display = ('block');
+    pauseState=true;
+  }
+  const close = () => {
+    modalBG.style.display = ('none');
+    pauseState=false;
+  }
+  help.onclick = function(){open()};
+  modalBG.onclick = function(){close()};
+}
 
+let pauseState=false;
 const game=document.querySelector('#tetris');
 const holdCanvas=document.querySelector('#hold');
 const nextCanvas=document.querySelector('#next');
@@ -252,17 +266,6 @@ const displayGameOver=()=>{
   number.innerHTML=`High Score:<br>${lastScore}`;
 }
 
-const colors = [
-  null,
-  '#FF0D72',
-  '#0DC2FF',
-  '#0DFF72',
-  '#F538FF',
-  '#FF8E0D',
-  '#FFE138',
-  '#3877FF',
-];
-
 let img1=new Image();
 img1.src="images/golconda_1a.png";
 let img2=new Image();
@@ -297,7 +300,6 @@ const renderHold=(tetri, offset)=>{
   tetri.forEach((row,yIndex)=>{
       row.forEach((value,xIndex)=>{
           if (value!=0){
-              // render tetrimino
               holdCtx.fillStyle="black";
               holdCtx.fillRect((xIndex+offset.x),(yIndex+offset.y),1,1);
           }
@@ -309,7 +311,6 @@ const renderNext=(tetri, offset)=>{
   tetri.forEach((row,yIndex)=>{
       row.forEach((value,xIndex)=>{
           if (value!=0){
-              // render tetrimino
               nextCtx.fillStyle="black";
               nextCtx.fillRect((xIndex+offset.x),(yIndex+offset.y),1,1);
           }
@@ -351,6 +352,11 @@ const hardDrop=()=>{
   changeTetri();
   holdstate=true;
 }
+
+// Huge thanks to Meth Meth Method
+// CheckCollision and Merge functions adapted from their work
+// https://www.youtube.com/watch?v=H2aW5V46khA
+// https://github.com/meth-meth-method/tetris
 
 const checkCollision=(gameGrid,player)=>{
   for(let y=0;y<player.tetrimino[0].length;y++){
@@ -435,17 +441,19 @@ const hold=()=>{
 
 let counter=0;
 const update=()=>{
-  counter+=60/60;
-  if(counter>720/60){
-  	softDrop();
-  	counter=0;
-  }
-  updateGhost();
-  document.getElementById('score').innerHTML=`Current Score:<br>${player.score}`;
-  render();
-  if(gameGrid[2].some((n)=>n!=0)){
-      displayGameOver();
-      reset();
+  if (!pauseState){
+    counter+=(1+(player.score/250));
+    if(counter>30){
+    	softDrop();
+    	counter=0;
+    }
+    updateGhost();
+    document.getElementById('score').innerHTML=`Current Score:<br>${player.score}`;
+    render();
+    if(gameGrid[2].some((n)=>n!=0)){
+        displayGameOver();
+        reset();
+    }
   }
   requestAnimationFrame(update);
 }
