@@ -21,3 +21,5 @@ An explanation of the major problems you plan to face while implementing this ga
 I will use Google and youtube to solve the above problems. The tetris guideline will also provide instructions on how the tetriminos should come out and rotate.
 
 ![galconda_tetris](https://github.com/KeigoAlexTanaka/tetris/blob/master/images/tumblr_om2ypwTc5y1uluhv2o1_500.gif?raw=true)
+
+![Click Me](http://golconda-tetris.surge.sh/)
